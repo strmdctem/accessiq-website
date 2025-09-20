@@ -12,13 +12,12 @@ import {
   Users,
   Zap
 } from 'lucide-react'
-import Image from 'next/image'
 
 const Services = () => {
   const services = [
     {
       icon: DoorOpen,
-      image: '/products/gate-automation.png',
+      image: 'products/gate-automation.png',
       title: 'Gate Automation',
       description: 'Swing and sliding gate automation for homes, villas, societies, and commercial spaces with world-class systems.',
       features: ['Swing Gates', 'Sliding Gates', 'Smart Connectivity', 'Remote & RFID Control'],
@@ -26,7 +25,7 @@ const Services = () => {
     },
     {
       icon: Shield,
-      image: '/products/boom-barriers.png',
+      image: 'products/boom-barriers.png',
       title: 'Boom Barriers',
       description: 'Fast, durable boom barriers with RFID/ANPR integration for residential, commercial, and industrial sites.',
       features: ['Quick Open/Close', 'RFID Integration', 'ANPR Support', 'Manual Override'],
@@ -34,7 +33,7 @@ const Services = () => {
     },
     {
       icon: Scan,
-      image: '/products/vehicle-access-automation.png',
+      image: 'products/vehicle-access-automation.png',
       title: 'Vehicle Access (RFID/ANPR)',
       description: 'Advanced RFID and ANPR systems for fast, contactless vehicle identification and automatic plate recognition.',
       features: ['RFID Readers', 'License Plate Recognition', 'Contactless Entry', 'Real-time Monitoring'],
@@ -42,7 +41,7 @@ const Services = () => {
     },
     {
       icon: Car,
-      image: '/products/parking-management.png',
+      image: 'products/parking-management.png',
       title: 'Parking Management',
       description: 'Smart parking solutions with real-time guidance, QR/UPI payments, and comprehensive analytics.',
       features: ['Real-time Guidance', 'QR & UPI Payments', 'Analytics & Reporting', 'Visitor Management'],
@@ -50,7 +49,7 @@ const Services = () => {
     },
     {
       icon: Users,
-      image: '/products/pedestrian-access-control.png',
+      image: 'products/pedestrian-access-control.png',
       title: 'Pedestrian Access Control',
       description: 'Flap barriers, turnstiles, and swing barriers with biometric integration for secure pedestrian access.',
       features: ['Flap Barriers', 'Turnstiles', 'Swing Barriers', 'Biometric & QR Integration'],
@@ -58,7 +57,7 @@ const Services = () => {
     },
     {
       icon: Settings,
-      image: '/products/technology-integration.png',
+      image: 'products/technology-integration.png',
       title: 'Technology & Integration',
       description: 'Complete ecosystem integration with API connectivity, mobile dashboards, and IoT-ready solutions.',
       features: ['API Integrations', 'Mobile Dashboards', 'Cloud/On-premise', 'IoT Ready'],
@@ -162,12 +161,10 @@ const Services = () => {
                   className="relative w-full h-48 rounded-xl mb-4 overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 group-hover:scale-105 transition-transform duration-300"
                   whileHover={{ y: -5 }}
                 >
-                  <Image
-                    src={service.image}
+                  <img
+                    src={`/accessiq-website/${service.image}`}
                     alt={service.title}
-                    fill
-                    className="object-contain p-1"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="w-full h-full object-contain p-1"
                   />
                 </motion.div>
               )}
