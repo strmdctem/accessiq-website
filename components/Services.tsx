@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
 import {
   ArrowRight,
   Car,
@@ -11,7 +11,13 @@ import {
   Shield,
   Users,
   Zap
-} from 'lucide-react'
+} from 'lucide-react';
+
+// Utility function to get the correct image path based on environment
+const getImagePath = (imagePath: string) => {
+  const isProd = process.env.NODE_ENV === 'production';
+  return isProd ? `/accessiq-website/${imagePath}` : `/${imagePath}`;
+};
 
 const Services = () => {
   const services = [
@@ -129,7 +135,7 @@ const Services = () => {
             <span className="block text-teal-600">Access Solutions</span>
           </h2>
           
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
             Technology-driven solutions that blend hardware reliability with software intelligence. 
             From automated gates to integrated ecosystems, we create smart access solutions for every need.
           </p>
@@ -162,7 +168,7 @@ const Services = () => {
                   whileHover={{ y: -5 }}
                 >
                   <img
-                    src={`/accessiq-website/${service.image}`}
+                    src={getImagePath(service.image)}
                     alt={service.title}
                     className="w-full h-full object-contain p-1"
                   />
