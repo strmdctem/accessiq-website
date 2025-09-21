@@ -25,13 +25,13 @@ export default function Home() {
       </div>
 
       <div className="relative z-10">
-        <Navigation />
-        <Hero />
-        <Services />
-        <About />
-        <WhyChooseUs />
-        <Contact />
-        <Footer />
+  <Navigation />
+  <Hero />
+  <Services />
+  <WhyChooseUs />
+  <About />
+  <Contact />
+  <Footer />
       </div>
     </main>
   )

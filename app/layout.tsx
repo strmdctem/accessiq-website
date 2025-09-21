@@ -1,6 +1,6 @@
+import FAB from '@/components/FAB'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
-import FAB from '@/components/FAB'
 
 export const metadata: Metadata = {
   title: 'AccessIQ Innovation - Smart Access Control Solutions',

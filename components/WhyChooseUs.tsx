@@ -8,7 +8,7 @@ const WhyChooseUs = () => {
     {
       icon: Award,
       title: '50+ Projects',
-      description: 'Successfully completed projects across India with 99.9% client satisfaction rate.',
+      description: 'Successfully completed projects across India with high client satisfaction.',
       stat: '50+',
       label: 'Projects Completed'
     },
@@ -57,6 +57,8 @@ const WhyChooseUs = () => {
       description: 'Scalable solutions that grow with your business and integrate with emerging technologies.'
     }
   ]
+
+  // reasons removed to reduce card count per request
 
   return (
     <section id="why-choose-us" className="relative py-20 overflow-hidden">
@@ -115,13 +117,12 @@ const WhyChooseUs = () => {
           </motion.div>
           
           <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-900 mb-6">
-            Trusted by Leading
-            <span className="block text-teal-600">Enterprises</span>
+            Why Choose
+            <span className="block text-teal-600">AccessIQ</span>
           </h2>
-          
+
           <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            With cutting-edge technology, expert support, and proven track record, 
-            we deliver access control solutions that exceed expectations.
+            Cutting-edge technology, trusted partnerships, and 24/7 support — delivered with an Indian-first vision.
           </p>
         </motion.div>
 
@@ -159,34 +160,27 @@ const WhyChooseUs = () => {
           ))}
         </div>
 
-        {/* Benefits Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
+  {/* Benefits + Reasons Grid (merged) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-16">
           {benefits.map((benefit, index) => (
             <motion.div
-              key={index}
-              className="backdrop-blur-lg bg-white/80 rounded-2xl p-8 shadow-xl border border-white/20 hover:border-teal-200 transition-all duration-300 group"
+              key={`b-${index}`}
+              className="backdrop-blur-lg bg-white/80 rounded-2xl p-6 shadow-xl border border-white/20 hover:border-teal-200 transition-all duration-300 group"
               initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
+              transition={{ duration: 0.8, delay: index * 0.06 }}
               viewport={{ once: true }}
               whileHover={{ y: -5 }}
             >
-              <motion.div 
-                className="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-teal-600 group-hover:scale-110 transition-all duration-300"
-                whileHover={{ rotate: 10 }}
-              >
+              <div className="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center mb-4">
                 <benefit.icon className="w-6 h-6 text-teal-600 group-hover:text-white transition-colors duration-300" />
-              </motion.div>
-              
-              <h3 className="text-xl font-display font-bold text-slate-900 mb-4 group-hover:text-teal-600 transition-colors duration-300">
-                {benefit.title}
-              </h3>
-              
-              <p className="text-slate-600 leading-relaxed">
-                {benefit.description}
-              </p>
+              </div>
+              <h3 className="text-lg font-display font-bold text-slate-900 mb-2">{benefit.title}</h3>
+              <p className="text-slate-600 leading-relaxed">{benefit.description}</p>
             </motion.div>
           ))}
+
+          {/* Removed additional reason cards per request */}
         </div>
       </div>
     </section>

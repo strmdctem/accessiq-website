@@ -169,7 +169,7 @@ const Navigation = () => {
                   whileTap={{ scale: 0.98 }}
                 >
                   <Mail className="w-5 h-5" />
-                  <span>Get Free Quote</span>
+                  <span>Get Free Consultation</span>
                 </motion.button>
               </div>
             </div>

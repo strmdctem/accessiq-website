@@ -1,37 +1,9 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Target, Zap, Globe, Users, TrendingUp, Shield, CheckCircle } from 'lucide-react'
+import { Target, Shield } from 'lucide-react'
 
 const About = () => {
-  const whyChooseUs = [
-    {
-      icon: Zap,
-      title: 'Technology-first approach',
-      description: 'Cutting-edge solutions powered by innovation'
-    },
-    {
-      icon: Globe,
-      title: 'Seamless integrations',
-      description: 'Perfect harmony between hardware and software'
-    },
-    {
-      icon: Users,
-      title: 'Global brand partnerships',
-      description: 'Strong associations with world-class automation brands'
-    },
-    {
-      icon: Shield,
-      title: 'Reliable service and support',
-      description: '24/7 support with guaranteed response times'
-    },
-    {
-      icon: TrendingUp,
-      title: 'Commitment to innovation',
-      description: 'Continuously evolving with latest technologies'
-    }
-  ]
-
   const roadmapItems = [
     {
       phase: 'Today',
@@ -47,8 +19,8 @@ const About = () => {
     },
     {
       phase: 'Future',
-      title: 'AI-powered Smart Cities',
-      description: 'IoT enabled platforms for next-generation smart cities',
+      title: 'AI-powered Smart Systems',
+      description: 'IoT-enabled platforms for next-generation smart systems',
       status: 'future'
     }
   ]
@@ -202,66 +174,7 @@ const About = () => {
           </div>
         </motion.div>
 
-        {/* Why Choose Us */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-display font-bold text-slate-900 mb-4">
-              Why Choose AccessIQ?
-            </h3>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Five key reasons why businesses across India trust AccessIQ for their access automation needs.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {whyChooseUs.map((item, index) => (
-              <motion.div
-                key={index}
-                className="backdrop-blur-lg bg-white/80 rounded-2xl border border-white/20 p-6 shadow-xl hover:shadow-2xl transition-all duration-300"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-              >
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-teal-500 to-teal-600 flex items-center justify-center mb-4">
-                  <item.icon className="w-6 h-6 text-white" />
-                </div>
-                <h4 className="text-lg font-display font-bold text-slate-900 mb-2">
-                  {item.title}
-                </h4>
-                <p className="text-slate-600 leading-relaxed">
-                  {item.description}
-                </p>
-              </motion.div>
-            ))}
-            
-            {/* Additional item to complete the grid */}
-            <motion.div
-              className="backdrop-blur-lg bg-gradient-to-r from-teal-600/90 to-teal-700/90 rounded-2xl border border-white/20 p-6 shadow-xl text-white md:col-span-2 lg:col-span-1"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -5 }}
-            >
-              <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center mb-4">
-                <CheckCircle className="w-6 h-6 text-white" />
-              </div>
-              <h4 className="text-lg font-display font-bold mb-2">
-                Made in India Vision
-              </h4>
-              <p className="text-teal-100 leading-relaxed">
-                Building the future of smart access with proudly Indian-made technology and innovation.
-              </p>
-            </motion.div>
-          </div>
-        </motion.div>
+        {/* Why Choose Us: moved to single improved WhyChooseUs.tsx component */}
       </div>
     </section>
   )

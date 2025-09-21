@@ -76,7 +76,7 @@ const Contact = () => {
       icon: Phone,
       title: 'Phone',
       details: 'Preet: +91 97571 01055\nAnand: +91 77387 31055\nNamra: +91 75592 00595',
-      description: 'Monday to Sunday 8 AM to 11 PM',
+  description: 'Monday to Sunday 8 AM to 11 PM. For Emergency: 24/7',
       action: 'tel:+919757101055'
     },
     {
@@ -96,8 +96,8 @@ const Contact = () => {
     {
       icon: Clock,
       title: 'Business Hours',
-      details: 'Mon - Sat: 9AM - 6PM\nSun: Emergency only',
-      description: 'Emergency support: 24/7',
+  details: 'Monday to Sunday 8 AM to 11 PM',
+  description: 'For Emergency: 24/7',
       action: '#'
     }
   ]
@@ -386,9 +386,17 @@ const Contact = () => {
                       <h4 className="font-semibold text-slate-900 group-hover:text-teal-600 transition-colors duration-300">
                         {info.title}
                       </h4>
-                      <p className="text-slate-700 font-medium whitespace-pre-line">
-                        {info.details}
-                      </p>
+                      {info.title === 'Phone' ? (
+                        <p className="text-slate-700 font-medium">
+                          {info.details.split('\n').map((line, idx) => (
+                            <span key={idx} className="whitespace-nowrap block">{line}</span>
+                          ))}
+                        </p>
+                      ) : (
+                        <p className="text-slate-700 font-medium whitespace-pre-line break-keep">
+                          {info.details}
+                        </p>
+                      )}
                       <p className="text-sm text-slate-500">{info.description}</p>
                     </div>
                   </motion.div>
@@ -438,7 +446,7 @@ const Contact = () => {
                   Mumbai – 400067, India
                 </p>
                 <p className="text-teal-600 font-medium text-sm mb-2">
-                  Monday to Sunday: 8:00 AM - 11:00 PM
+                  Monday to Sunday: 8:00 AM - 11:00 PM. For Emergency: 24/7
                 </p>
                 <p className="text-slate-500 text-xs flex items-center space-x-1">
                   <span>📍</span>
@@ -454,7 +462,7 @@ const Contact = () => {
                     <div className="text-slate-600 text-sm font-medium">Response Time</div>
                   </div>
                   <div className="text-center p-4 backdrop-blur-sm bg-white/40 rounded-lg border border-white/20">
-                    <div className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-teal-700 bg-clip-text text-transparent">500+</div>
+                    <div className="text-2xl font-bold bg-gradient-to-r from-teal-600 to-teal-700 bg-clip-text text-transparent">50</div>
                     <div className="text-slate-600 text-sm font-medium">Projects Done</div>
                   </div>
                 </div>

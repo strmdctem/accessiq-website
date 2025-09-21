@@ -134,7 +134,7 @@ const Hero = () => {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <span>Get Free Quote</span>
+                <span>Get Free Consultation</span>
                 <ArrowRight className="w-5 h-5" />
               </motion.button>
               

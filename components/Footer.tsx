@@ -169,13 +169,13 @@ const Footer = () => {
               <div className="space-y-4">
                 <div>
                   <h4 className="font-medium text-teal-400 mb-2">Business Hours</h4>
-                  <p className="text-slate-300 text-sm">Monday - Saturday</p>
+                  <p className="text-slate-300 text-sm">Monday to Sunday 8 AM to 11 PM</p>
                   <p className="text-slate-300 text-sm">9:00 AM - 6:00 PM</p>
                 </div>
                 
                 <div>
                   <h4 className="font-medium text-teal-400 mb-2">Emergency Support</h4>
-                  <p className="text-slate-300 text-sm">24/7 Available</p>
+                  <p className="text-slate-300 text-sm">For Emergency: 24/7</p>
                   <p className="text-slate-300 text-sm">Quick Response Time</p>
                 </div>
                 
@@ -185,7 +185,7 @@ const Footer = () => {
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  Get Free Quote
+                  Get Free Consultation
                 </motion.button>
               </div>
             </motion.div>
