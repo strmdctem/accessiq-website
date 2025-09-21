@@ -1,43 +1,75 @@
 'use client'
 
 import { motion } from 'framer-motion'
+
 import { Clock, Mail, MessageSquare, Phone, Send } from 'lucide-react'
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+
+
+interface ContactForm {
+  name: string;
+  email: string;
+  phone: string;
+  company: string;
+  message: string;
+}
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    message: ''
-  })
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+    watch,
+  } = useForm<ContactForm>();
+
+  const watchEmail = watch('email');
+  const watchPhone = watch('phone');
 
   const handleWhatsAppClick = (href: string) => {
-    // Detect mobile device
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
     if (isMobile) {
-      // On mobile: Open WhatsApp app directly
       window.location.href = href;
     } else {
-      // On desktop: Open WhatsApp Web in new tab
       window.open(href, '_blank', 'noopener,noreferrer');
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle form submission here
-    console.log('Form submitted:', formData)
-  }
+  const onSubmit = async (data: ContactForm) => {
+    setIsSubmitting(true);
+    try {
+      const formData = new FormData();
+      formData.append('name', data.name || '');
+      formData.append('email', data.email || '');
+      formData.append('phone', data.phone || '');
+      formData.append('company', data.company || '');
+      formData.append('message', data.message || '');
+      formData.append('_subject', 'New Contact Form Submission - AccessIQ');
+      formData.append('_captcha', 'false');
+      formData.append('_template', 'table');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    })
-  }
+      const response = await fetch('https://formsubmit.co/preet.iriseight@gmail.com', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        reset();
+        setTimeout(() => setIsSubmitted(false), 5000);
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch {
+      alert('There was an error sending your message. Please try again or contact us directly.');
+    }
+    setIsSubmitting(false);
+  };
 
   const contactInfo = [
     {
@@ -71,7 +103,8 @@ const Contact = () => {
   ]
 
   return (
-    <section id="contact" className="relative py-20 overflow-hidden">
+    <section id="contact-section" className="relative py-20 overflow-hidden">
+      {/* id changed to contact-section for FAB scroll */}
       {/* Enhanced Textured Professional Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-100/95 via-white/98 to-teal-100/95"></div>
       
@@ -155,7 +188,18 @@ const Contact = () => {
               Send us a message
             </h3>
             
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              {/* Success Message */}
+              {isSubmitted && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-green-100 border border-green-300 rounded-lg p-4 mb-4 flex items-center gap-2 text-green-700"
+                >
+                  <Send className="w-5 h-5" />
+                  <span>Message sent successfully! We&apos;ll get back to you within 24 hours.</span>
+                </motion.div>
+              )}
               <div className="grid md:grid-cols-2 gap-4">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -169,15 +213,14 @@ const Contact = () => {
                   <input
                     type="text"
                     id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
+                    {...register('name', { required: 'Full name is required' })}
                     className="w-full px-4 py-3 border border-white/30 bg-white/50 backdrop-blur-sm rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200 placeholder:text-slate-400"
                     placeholder="Your full name"
                   />
+                  {errors.name && (
+                    <p className="text-red-500 text-xs mt-1">{errors.name.message as string}</p>
+                  )}
                 </motion.div>
-                
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -185,21 +228,27 @@ const Contact = () => {
                   viewport={{ once: true }}
                 >
                   <label htmlFor="phone" className="block text-sm font-medium text-slate-700 mb-2">
-                    Phone Number *
+                    Phone Number
                   </label>
                   <input
                     type="tel"
                     id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
+                    {...register('phone', {
+                      validate: (value) => {
+                        if (!value && !watchEmail) {
+                          return 'Please provide either email or phone number';
+                        }
+                        return true;
+                      }
+                    })}
                     className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
                     placeholder="+91 XXXXX XXXXX"
                   />
+                  {errors.phone && (
+                    <p className="text-red-500 text-xs mt-1">{errors.phone.message as string}</p>
+                  )}
                 </motion.div>
               </div>
-              
               <div className="grid md:grid-cols-2 gap-4">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -208,20 +257,29 @@ const Contact = () => {
                   viewport={{ once: true }}
                 >
                   <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
-                    Email Address *
+                    Email Address
                   </label>
                   <input
                     type="email"
                     id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
+                    {...register('email', {
+                      validate: (value) => {
+                        if (!value && !watchPhone) {
+                          return 'Please provide either email or phone number';
+                        }
+                        if (value && !/^\S+@\S+$/i.test(value)) {
+                          return 'Invalid email address';
+                        }
+                        return true;
+                      }
+                    })}
                     className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
                     placeholder="your@email.com"
                   />
+                  {errors.email && (
+                    <p className="text-red-500 text-xs mt-1">{errors.email.message as string}</p>
+                  )}
                 </motion.div>
-                
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -234,15 +292,12 @@ const Contact = () => {
                   <input
                     type="text"
                     id="company"
-                    name="company"
-                    value={formData.company}
-                    onChange={handleChange}
+                    {...register('company')}
                     className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200"
                     placeholder="Your company"
                   />
                 </motion.div>
               </div>
-              
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -254,16 +309,15 @@ const Contact = () => {
                 </label>
                 <textarea
                   id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
+                  {...register('message', { required: 'Project details are required' })}
                   rows={4}
                   className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200 resize-none"
                   placeholder="Tell us about your project requirements..."
                 />
+                {errors.message && (
+                  <p className="text-red-500 text-xs mt-1">{errors.message.message as string}</p>
+                )}
               </motion.div>
-              
               <motion.button
                 type="submit"
                 className="w-full bg-teal-600 hover:bg-teal-700 text-white py-4 px-6 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center space-x-2"
@@ -273,9 +327,20 @@ const Contact = () => {
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
+                disabled={isSubmitting}
+                style={{ opacity: isSubmitting ? 0.5 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer' }}
               >
-                <Send className="w-5 h-5" />
-                <span>Send Message</span>
+                {isSubmitting ? (
+                  <>
+                    <Clock className="w-5 h-5 animate-spin" />
+                    <span>Sending...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" />
+                    <span>Send Message</span>
+                  </>
+                )}
               </motion.button>
             </form>
           </motion.div>

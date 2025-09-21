@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import FAB from '@/components/FAB'
 
 export const metadata: Metadata = {
   title: 'AccessIQ Innovation - Smart Access Control Solutions',
@@ -48,6 +49,7 @@ export default function RootLayout({
         <div id="root">
           {children}
         </div>
+        <FAB />
       </body>
     </html>
   )
