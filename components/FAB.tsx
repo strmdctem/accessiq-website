@@ -1,14 +1,27 @@
 "use client";
 import { MessageCircle, Phone, UserCircle, X } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const PHONE_NUMBER = "+919757101055"; // Matches Contact Information CTA
 const CONTACT_ANCHOR = "#contact";
 
-export default function FAB() {
+
+function FAB() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const fabRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function handleClick(e: MouseEvent) {
+      if (fabRef.current && !fabRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [open]);
 
   // Scroll to contact form if on homepage, else navigate
   const handleContactClick = () => {
@@ -26,7 +39,7 @@ export default function FAB() {
   };
 
   return (
-    <div className="fixed z-50 bottom-6 right-6 flex flex-col items-end gap-3">
+    <div ref={fabRef} className="fixed z-50 bottom-6 right-6 flex flex-col items-end gap-3">
       {open && (
         <div className="flex flex-col items-end gap-3 mb-2">
           <button
@@ -65,6 +78,9 @@ export default function FAB() {
       >
   {open ? <X className="w-8 h-8" /> : <UserCircle className="w-8 h-8" />}
       </button>
+
     </div>
   );
 }
+
+export default FAB;
